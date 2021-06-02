@@ -6,20 +6,23 @@ import Landing from './components/layout/Landing'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import './App.css'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const App = () => (
-  <Fragment>
-    <Header />
+  <Provider store={store}>
     <Router>
-      {/* <Landing /> */}
-      <Switch>
-        <Route exact path="/" component={Landing} />
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
-      </Switch>
+      <Fragment>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+        </Switch>
+        <Footer />
+      </Fragment>
     </Router>
-    <Footer />
-  </Fragment>
+  </Provider>
 )
 
 export default App;

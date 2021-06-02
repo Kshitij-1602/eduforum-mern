@@ -1,42 +1,84 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TextField from '@material-ui/core/TextField';
 import { Button } from "@material-ui/core";
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { setAlert } from '../../actions/alert'
+import PropTypes from 'prop-types'
+import Alert from '../layout/Alert'
 
-const Register = () => {
+const Register = ({ setAlert }) => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        password2: ''
+    });
+    const { name, email, password, password2 } = formData
+    const onChange = e => setFormData({
+        ...formData,
+        [e.target.name]: e.target.value 
+    })
+    const onSubmit = e => {
+        e.preventDefault()
+        if(password !== password2){
+            setAlert('Passwords do not match', 'danger', 3000)
+        } else {
+            // register({ name, email, password })
+            console.log('SUCCESS')
+        }
+    }
     return (
         <div style={register}>
             <div style={registerContainer}>
+                <Alert />
                 <AccountCircleIcon color="secondary" style={{ fontSize: 50 }} />
                 <h2>Register</h2>
-                <form>
+                <form onSubmit={e => onSubmit(e)}>
                     <TextField
                         style={textAreaStyle}
                         name="name"
+                        value={name}
                         variant="outlined"
                         label="Your Name"
                         type="text"
                         fullWidth
                         required
+                        onChange = {e => onChange(e)}
                     />
                     <TextField
                         style={textAreaStyle}
                         name="email"
+                        value={email}
                         variant="outlined"
                         label="Email Address"
                         type="email"
                         fullWidth
                         required
+                        onChange = {e => onChange(e)}
                     />
                     <TextField
                         style={textAreaStyle}
                         name="password"
+                        value={password}
                         variant="outlined"
                         label="Password"
                         type="password"
                         fullWidth
                         required
+                        onChange = {e => onChange(e)}
+                    />
+                    <TextField
+                        style={textAreaStyle}
+                        name="password2"
+                        value={password2}
+                        variant="outlined"
+                        label="Confirm Password"
+                        type="password"
+                        fullWidth
+                        required
+                        onChange = {e => onChange(e)}
                     />
                     <Button
                         type="submit"
@@ -68,4 +110,7 @@ const textAreaStyle = {
     margin: "10px"
 }
 
-export default Register
+Register.protoTypes = {
+    setAlert: PropTypes.func.isRequired
+}
+export default connect(null, { setAlert })( Register )
