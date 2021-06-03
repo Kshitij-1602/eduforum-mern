@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TextField from '@material-ui/core/TextField';
 import { Button } from "@material-ui/core";
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setAlert } from '../../actions/alert'
+import { register } from '../../actions/auth'
 import PropTypes from 'prop-types'
 import Alert from '../layout/Alert'
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -25,12 +26,16 @@ const Register = ({ setAlert }) => {
         if(password !== password2){
             setAlert('Passwords do not match', 'danger', 3000)
         } else {
-            // register({ name, email, password })
+            register({ name, email, password })
             console.log('SUCCESS')
         }
     }
+    // redirect if logged in
+    if(isAuthenticated){
+        return <Redirect to='/dashboard' />
+    }
     return (
-        <div style={register}>
+        <div style={registerStyle}>
             <div style={registerContainer}>
                 <Alert />
                 <AccountCircleIcon color="secondary" style={{ fontSize: 50 }} />
@@ -93,7 +98,7 @@ const Register = ({ setAlert }) => {
     )
 }
 
-const register = {
+const registerStyle = {
     height: "100vh",
     background: "#f8f8f8",
     display: "grid",
@@ -111,6 +116,11 @@ const textAreaStyle = {
 }
 
 Register.protoTypes = {
-    setAlert: PropTypes.func.isRequired
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
 }
-export default connect(null, { setAlert })( Register )
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
+export default connect(mapStateToProps, { setAlert, register })( Register )

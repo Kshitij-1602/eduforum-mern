@@ -1,33 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import TextField from '@material-ui/core/TextField';
 import { Button } from "@material-ui/core";
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { login } from '../../actions/auth'
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const { email, password } = formData
+
+    const onChange = e => setFormData({
+        ...formData,
+        [e.target.name]: e.target.value 
+    })
+    const onSubmit = e => {
+        e.preventDefault()
+        login(email, password)
+    }
+
+    // redirect if logged in
+    if(isAuthenticated){
+        return <Redirect to='/dashboard' />
+    }
+
     return (
-        <div style={login}>
+        <div style={loginStyle}>
             <div style={loginContainer}>
                 <LockOpenIcon color="secondary" style={{ fontSize: 50 }} />
                 <h2>Sign In</h2>
-                <form>
+                <form onSubmit={e => onSubmit(e)}>
                     <TextField
                         style={textAreaStyle}
                         name="email"
+                        value={email}
                         variant="outlined"
                         label="Email Address"
                         type="email"
                         fullWidth
                         required
+                        onChange = {e => onChange(e)}
                     />
                     <TextField
                         style={textAreaStyle}
                         name="password"
+                        value={password}
                         variant="outlined"
                         label="Password"
                         type="password"
                         fullWidth
                         required
+                        onChange = {e => onChange(e)}
                     />
                     <Button
                         type="submit"
@@ -42,7 +70,7 @@ const Login = () => {
     )
 }
 
-const login = {
+const loginStyle = {
     height: "100vh",
     background: "#f8f8f8",
     display: "grid",
@@ -59,4 +87,11 @@ const textAreaStyle = {
     margin: "10px"
 }
 
-export default Login
+Login.propTypes = {
+    login: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
+}
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
+export default connect(mapStateToProps, { login })(Login)

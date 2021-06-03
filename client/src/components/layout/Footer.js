@@ -2,7 +2,8 @@ import React from 'react'
 
 function Footer() {
     return(
-        <div style={footerStyle}>
+        // <div style={footerStyle}>
+        <div className="footer">
             <p style={{padding: '10px'}}>About us | Contact us</p>
         </div>
     );

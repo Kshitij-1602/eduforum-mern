@@ -2,7 +2,8 @@ import React from 'react';
 
 function Header() {
     return(
-        <header style={headerStyle}>
+        // <header style={headerStyle}>
+        <header className="header">
             <h1 style={titleStyle}>
                 EduForum
             </h1>
