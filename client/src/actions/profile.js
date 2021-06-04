@@ -46,7 +46,7 @@ export const getProfileById = userId => async dispatch => {
 
         dispatch({
             type: GET_PROFILE,
-            payload: res
+            payload: res.data
         })
     } catch (err) {
         dispatch({

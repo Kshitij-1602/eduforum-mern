@@ -5,16 +5,18 @@ import { Link } from 'react-router-dom'
 
 function Landing() {
   return (
-    <div style={landing}>
-      <div style={landingContainer}>
-        <img style={imgStyle} src={logo} alt="logo" />
-        <h1>Welcome to EduForum</h1>
-        <Button style={buttonStyle} component={Link} to="/login">
-          Sign In
+    <div style={{ gridArea: 'sidebar content' }}>
+      <div style={landing}>
+        <div style={landingContainer}>
+          <img style={imgStyle} src={logo} alt="logo" />
+          <h1>Welcome to EduForum</h1>
+          <Button style={buttonStyle} component={Link} to="/login">
+            Sign In
         </Button>
-        <Button style={buttonStyle} component={Link} to="/register">
-          Register
+          <Button style={buttonStyle} component={Link} to="/register">
+            Register
         </Button>
+        </div>
       </div>
     </div>
   );

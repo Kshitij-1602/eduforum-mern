@@ -1,119 +1,123 @@
-import React, { useState } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from "@material-ui/icons/Edit";
-import { Paper } from "@material-ui/core";
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import TextField from '@material-ui/core/TextField';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
+// TODO: add Reditrect when no profile
+// TODO: bug when click social link in same tab
+import React, { useEffect } from "react";
+import { Paper, Avatar, Chip, IconButton, Button } from "@material-ui/core";
 import Sidebar from '../layout/Sidebar'
+import { getCurrentProfile } from '../../actions/profile'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { 
+  Done, 
+  Twitter, 
+  YouTube, 
+  Instagram, 
+  Facebook, 
+  LinkedIn, 
+  GitHub } from '@material-ui/icons'
+import { Link } from 'react-router-dom'
 
 
-function Profile() {
-  const [College, setCollege] = useState({
-    name: 'EMPTY',
-    email: 'EMPTY',
-    branch: 'EMPTY'
-  });
-  const [open, setOpen] = useState(false);
-  const [detail, setDetail] = useState("");
-  const [txtbox, setTxtbox] = useState("");
-  var name = "EMPTY EMPTY", photoURL;
+function Profile({ profile, getCurrentProfile }) {
+  useEffect(() => {
+    getCurrentProfile()
+  }, [getCurrentProfile])
 
-  const handleEditClick = (det) => {
-    setOpen(true);
-    setDetail(det);
-  }
-  const handleCloseClick = () => {
-    setOpen(false);
-    setDetail("");
-  }
-  const handleSubmitClick = () => {
-    setOpen(false);
-    setDetail("");
-  }
-  const handleTxtChange = (event) => {
-    const { value } = event.target;
-    setTxtbox(value);
-  }
-
+  console.log(profile)
+  const { profile: {
+        university,
+        degree,
+        location,
+        status,
+        skills,
+        social,
+        user: { name, avatar }
+  } } = profile
   return (
-    // <div style={profileStyle}>
     <React.Fragment>
       <Sidebar />
-      {/* <Paper style={{ height: "95%", margin: "15px" }}> */}
       <Paper className="content profile-style"> 
         <div style={profileHeader}>
-          <Avatar alt="user image" style={avatarStyle} src={photoURL}>
-            {/* N */}
-          </Avatar>
+          <Avatar alt="user image" style={avatarStyle} src={avatar} />
           <div style={{ margin: "25px" }}>
-            {/* <h2>User Name </h2> */}
             <h2>{name}</h2>
             <fieldset style={{ width: "700px",height: "200px",border: "1px solid black", padding: "8px" }}>
               <legend style={{ width: "auto", fontSize: "18px", margin: "8px" }}>
                 Status
               </legend>
-              EMPTY
+              { status ? (status) : ("Edit Profile to add Status") }
             </fieldset>
           </div>
         </div>
         <div style={profileMain}>
-          <h4>Email:</h4>
-          <p style={profileText}>{College.email}</p>
-          <IconButton style={{ margin: "10px" }} onClick={() => handleEditClick("email")}>
-            <EditIcon style={{ margin: "8px" }} />
-          </IconButton>
+          {skills && skills.length > 0 && (
+            <div style = {{ display: 'block', marginTop: '5px' }}>
+              <h4>Skills:</h4>
+              {skills.map((skill, index) => (
+              <Chip 
+                key={index} 
+                label={skill} 
+                color="primary" 
+                onDelete={() => {}} 
+                style = {{ margin: '10px' }}
+                deleteIcon={<Done />} 
+              />
+              ))}
+            </div>
+          )}
           <h4>University:</h4>
-          <p style={profileText}>{College.name}</p>
-          <IconButton style={{ margin: "10px" }} onClick={() => handleEditClick("name")}>
-            <EditIcon style={{ margin: "8px" }} />
-          </IconButton>
-          <h4>Branch:</h4>
-          <p style={profileText}>{College.branch}</p>
-          <IconButton style={{ margin: "10px" }} onClick={() => handleEditClick("branch")}>
-            <EditIcon style={{ margin: "8px" }} />
-          </IconButton>
+          <p style={profileText}>{university}</p>
+          <h4>Degree:</h4>
+          <p style={profileText}>{degree}</p>
+          <h4>Location:</h4>
+          <p style={profileText}>{location}</p>
+          {social && (
+            <div style = {{ display: 'block', marginTop: '5px' }}>
+              <h4>Social Links:</h4>
+              {social.twitter && (
+                <IconButton href={social.twitter}>
+                  <Twitter />
+                </IconButton>
+              )}
+              {social.youtube && (
+                <IconButton href={social.youtube}>
+                  <YouTube />
+                </IconButton>
+              )}
+              {social.instagram && (
+                <IconButton href={social.instagram}>
+                  <Instagram />
+                </IconButton>
+              )}
+              {social.facebook && (
+                <IconButton href={social.facebook}>
+                  <Facebook />
+                </IconButton>
+              )}
+              {social.linkedin && (
+                <IconButton href={social.linkedin}>
+                  <LinkedIn />
+                </IconButton>
+              )}
+              {social.github && (
+                <IconButton href={social.github}>
+                  <GitHub />
+                </IconButton>
+              )}
+            </div>
+          )}
+          <Button 
+            variant='contained'
+            color='secondary' 
+            component={Link} 
+            to='/edit-profile'>Edit Profile</Button>
         </div>
       </Paper>
-      <Dialog fullWidth={true} maxWidth="sm" open={open} onClose={handleCloseClick} >
-        <DialogTitle>Edit value for: {detail}</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label={detail}
-            value={txtbox}
-            onChange={handleTxtChange}
-          // fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseClick} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSubmitClick} color="primary">
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>    
     </React.Fragment>
   );
 }
 
-const profileStyle = {
-  // background: '#f2f2f2'
-  margin: "20px",
-  height: "100%",
-  // padding: '10px'
-};
-
 const profileHeader = {
   display: "flex",
-  // marginLeft: '23%'
 };
 
 const avatarStyle = {
@@ -127,8 +131,6 @@ const avatarStyle = {
 const profileMain = {
   margin: "18px",
   marginLeft: "100px",
-  // marginBottom: '50px'
-  // marginLeft: '30%'
 };
 
 const profileText = {
@@ -139,4 +141,13 @@ const profileText = {
   borderRadius: "5px",
 };
 
-export default Profile;
+Profile.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  profile: state.profile
+})
+
+export default connect(mapStateToProps, { getCurrentProfile })(Profile);
