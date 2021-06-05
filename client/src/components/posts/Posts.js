@@ -9,14 +9,13 @@ import PostItem from './PostItem'
 const Posts = ({ getPosts, post: {posts, loading} }) => {
     useEffect(() => {
         getPosts()
-    }, [])
+    }, [getPosts])
     return !loading && (
         <Fragment>
             <Sidebar />
             <div style={{ gridArea: 'content' }}>
                 <CreatePost />
                 <br />
-                {/* if posts post.map */}
                 {posts.map(post => (
                     <PostItem key={post._id} post={post} />
                 ))}

@@ -11,19 +11,19 @@ import {
 import { Add } from '@material-ui/icons'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { addPost } from '../../actions/post'
+import { addComment } from '../../actions/post'
 
-const CreatePost = ({ addPost }) => {
-    const [title, setTitle] = useState('')
+const CreateComment = ({ postId, addComment }) => {
     const [text, setText] = useState('')
     const [open, setOpen] = useState(false)
     const handleClose = () => {
         setOpen(false)
-        setTitle('')
         setText('')
     }
     const handleSubmit = () => {
-        addPost({ title, text })
+        addComment(postId, { text })
+        console.log(postId)
+        console.log(text)
         handleClose()
     }
     return (
@@ -39,21 +39,12 @@ const CreatePost = ({ addPost }) => {
                 </Fab>
             </div>
             <Dialog fullWidth={true} maxWidth="md" open={open} onClose={handleClose}>
-                <DialogTitle>New Thread</DialogTitle>
+                <DialogTitle>New Comment</DialogTitle>
                 <DialogContent>
                     <TextField
                         margin="dense"
-                        name="title"
-                        label="Post Title"
-                        variant="outlined"
-                        onChange={e => setTitle(e.target.value)}
-                        value={title}
-                        fullWidth
-                    />
-                    <TextField
-                        margin="dense"
-                        name="text"
-                        label="Post Body"
+                        name="comment"
+                        label="Comment"
                         multiline
                         rows={10}
                         variant="outlined"
@@ -80,7 +71,7 @@ const addStyle = {
   margin: "13px",
 };
 
-CreatePost.propTypes = {
-    addPost: PropTypes.func.isRequired
+CreateComment.propTypes = {
+    addComment: PropTypes.func.isRequired
 }
-export default connect(null, { addPost })( CreatePost )
+export default connect(null, { addComment })( CreateComment )
