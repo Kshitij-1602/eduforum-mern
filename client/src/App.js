@@ -6,6 +6,7 @@ import Landing from './components/layout/Landing'
 import Register from './components/auth/Register'
 import Dashboard from './components/dashboard/Dashboard'
 import Profile from './components/profile/Profile'
+import Posts from './components/posts/Posts'
 import EditProfile from './components/profile/EditProfile'
 import Login from './components/auth/Login'
 import './App.css'
@@ -36,6 +37,7 @@ const App = () => {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/profile" component={Profile} />
               <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+              <PrivateRoute exact path="/posts" component={Posts} />
             </Switch>
             <Footer />
         </div>
