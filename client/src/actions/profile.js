@@ -6,12 +6,14 @@ import { CLEAR_PROFILE, GET_PROFILE, GET_PROFILES, PROFILE_ERROR, UPDATE_PROFILE
 // Get current profile
 export const getCurrentProfile = () => async dispatch => {
     try {
+        console.log('get profile reached')
         const res = await axios.get('/api/profile/me')
 
         dispatch({
             type: GET_PROFILE,
             payload: res.data
         })
+        console.log('get profile called')
     } catch (err) {
         dispatch({
             type: PROFILE_ERROR,

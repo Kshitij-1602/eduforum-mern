@@ -17,101 +17,107 @@ import {
 import { Link } from 'react-router-dom'
 
 
-function Profile({ profile, getCurrentProfile }) {
+function Profile({ profile: {profile, loading}, getCurrentProfile }) {
   useEffect(() => {
     getCurrentProfile()
   }, [getCurrentProfile])
 
-  console.log(profile)
-  const { profile: {
-        university,
-        degree,
-        location,
-        status,
-        skills,
-        social,
-        user: { name, avatar }
-  } } = profile
+  // const {
+  //   university,
+  //   degree,
+  //   location,
+  //   status,
+  //   skills,
+  //   social,
+  //   user: { name, avatar }
+  // } = profile
   return (
     <React.Fragment>
-      <Sidebar />
-      <Paper className="content profile-style"> 
-        <div style={profileHeader}>
-          <Avatar alt="user image" style={avatarStyle} src={avatar} />
-          <div style={{ margin: "25px" }}>
-            <h2>{name}</h2>
-            <fieldset style={{ width: "700px",height: "200px",border: "1px solid black", padding: "8px" }}>
-              <legend style={{ width: "auto", fontSize: "18px", margin: "8px" }}>
-                Status
+      {!loading && profile !== null && (
+        <React.Fragment>
+          <Sidebar />
+          <Paper className="content profile-style">
+            <div style={profileHeader}>
+              <Avatar alt="user image" style={avatarStyle} src={profile.avatar} />
+              <div style={{ margin: "25px" }}>
+                <h2>{profile.name}</h2>
+                <fieldset style={{ width: "700px", height: "200px", border: "1px solid black", padding: "8px" }}>
+                  <legend style={{ width: "auto", fontSize: "18px", margin: "8px" }}>
+                    Status
               </legend>
-              { status ? (status) : ("Edit Profile to add Status") }
-            </fieldset>
-          </div>
-        </div>
-        <div style={profileMain}>
-          {skills && skills.length > 0 && (
-            <div style = {{ display: 'block', marginTop: '5px' }}>
-              <h4>Skills:</h4>
-              {skills.map((skill, index) => (
-              <Chip 
-                key={index} 
-                label={skill} 
-                color="primary" 
-                onDelete={() => {}} 
-                style = {{ margin: '10px' }}
-                deleteIcon={<Done />} 
-              />
-              ))}
+                  {profile.status ? (profile.status) : ("Edit Profile to add Status")}
+                </fieldset>
+              </div>
             </div>
-          )}
-          <h4>University:</h4>
-          <p style={profileText}>{university}</p>
-          <h4>Degree:</h4>
-          <p style={profileText}>{degree}</p>
-          <h4>Location:</h4>
-          <p style={profileText}>{location}</p>
-          {social && (
-            <div style = {{ display: 'block', marginTop: '5px' }}>
-              <h4>Social Links:</h4>
-              {social.twitter && (
-                <IconButton href={social.twitter}>
-                  <Twitter />
-                </IconButton>
+            <div style={profileMain}>
+              {profile.skills && profile.skills.length > 0 && (
+                <div style={{ display: 'block', marginTop: '5px' }}>
+                  <h4>Skills:</h4>
+                  {profile.skills.map((skill, index) => (
+                    <Chip
+                      key={index}
+                      label={skill}
+                      color="primary"
+                      onDelete={() => { }}
+                      style={{ margin: '10px' }}
+                      deleteIcon={<Done />}
+                    />
+                  ))}
+                </div>
               )}
-              {social.youtube && (
-                <IconButton href={social.youtube}>
-                  <YouTube />
-                </IconButton>
+              <h4>University:</h4>
+              <p style={profileText}>{profile.university}</p>
+              <h4>Degree:</h4>
+              <p style={profileText}>{profile.degree}</p>
+              <h4>Location:</h4>
+              <p style={profileText}>{profile.location}</p>
+              {profile.social && (
+                <div style={{ display: 'block', marginTop: '5px' }}>
+                  <h4>Social Links:</h4>
+                  {profile.social.twitter && (
+                    <IconButton href={profile.social.twitter}>
+                      <Twitter />
+                    </IconButton>
+                  )}
+                  {profile.social.youtube && (
+                    <IconButton href={profile.social.youtube}>
+                      <YouTube />
+                    </IconButton>
+                  )}
+                  {profile.social.instagram && (
+                    <IconButton href={profile.social.instagram}>
+                      <Instagram />
+                    </IconButton>
+                  )}
+                  {profile.social.facebook && (
+                    <IconButton href={profile.social.facebook}>
+                      <Facebook />
+                    </IconButton>
+                  )}
+                  {profile.social.linkedin && (
+                    <IconButton href={profile.social.linkedin}>
+                      <LinkedIn />
+                    </IconButton>
+                  )}
+                  {profile.social.github && (
+                    <IconButton href={profile.social.github}>
+                      <GitHub />
+                    </IconButton>
+                  )}
+                </div>
               )}
-              {social.instagram && (
-                <IconButton href={social.instagram}>
-                  <Instagram />
-                </IconButton>
-              )}
-              {social.facebook && (
-                <IconButton href={social.facebook}>
-                  <Facebook />
-                </IconButton>
-              )}
-              {social.linkedin && (
-                <IconButton href={social.linkedin}>
-                  <LinkedIn />
-                </IconButton>
-              )}
-              {social.github && (
-                <IconButton href={social.github}>
-                  <GitHub />
-                </IconButton>
-              )}
+              <p style={{ margin: '10px' }}>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  // style={{ display: 'block' }}
+                  component={Link}
+                  to='/edit-profile'>Edit Profile</Button>
+              </p>
             </div>
-          )}
-          <Button 
-            variant='contained'
-            color='secondary' 
-            component={Link} 
-            to='/edit-profile'>Edit Profile</Button>
-        </div>
-      </Paper>
+          </Paper>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 }
