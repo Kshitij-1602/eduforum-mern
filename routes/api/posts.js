@@ -106,9 +106,56 @@ router.put('/like/:id', auth, async (req, res) => {
 
         post.likes.unshift({ user: req.user.id })
 
+        // if post disliked
+        if (post.dislikes.filter(dislike => dislike.user.toString() === req.user.id).length > 0) {
+            // remove dislike
+
+            // Get remove index
+            const removeIndex = post.dislikes
+                .map(dislike => dislike.user.toString())
+                .indexOf(req.user.id)
+
+            post.dislikes.splice(removeIndex, 1)
+        }
+
         await post.save()
 
-        res.json(post.likes)
+        res.json([post.likes, post.dislikes])
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).send('Server Error')
+    }
+})
+
+// @route   PUT api/posts/dislike/:id
+// @desc    dislike a post
+// @access  Private
+router.put('/dislike/:id', auth, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id)
+
+        // Check if the post has already been disliked
+        if (post.dislikes.filter(dislike => dislike.user.toString() === req.user.id).length > 0) {
+            return res.status(400).json({ msg: 'Post already disliked' })
+        }
+
+        post.dislikes.unshift({ user: req.user.id })
+
+        // if post liked
+        if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+            // remove like
+
+            // Get remove index
+            const removeIndex = post.likes
+                .map(like => like.user.toString())
+                .indexOf(req.user.id)
+
+            post.likes.splice(removeIndex, 1)
+        }
+
+        await post.save()
+
+        res.json([post.likes, post.dislikes])
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server Error')
@@ -212,9 +259,75 @@ router.put('/comment/like/:id/:comment_id', auth, async (req, res) => {
             }
         })
 
+        // if comment disliked
+        if (comment.dislikes.filter(dislike => dislike.user.toString() === req.user.id).length > 0) {
+            // remove dislike
+
+            const commentIndex = post.comments.findIndex(
+                comment => comment.id === req.params.comment_id
+            )
+
+            const removeIndex = post.comments[commentIndex].dislikes.findIndex(
+                dislike => dislike.user.toString() === req.user.id
+            )
+
+            post.comments[commentIndex].dislikes.splice(removeIndex, 1)
+        }
+
         await post.save()
 
-        res.json(comment.likes)
+        res.json([ comment.likes, comment.dislikes ])
+    } catch (err) {
+        console.error(err.message)
+        res.status(500).send('Server Error')
+    }
+})
+
+// @route    PUT api/posts/comment/dislike/:id/:comment_id
+// @desc     dislike comment
+// @access   Private
+router.put('/comment/dislike/:id/:comment_id', auth, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id)
+
+        // Pull out comment
+        const comment = post.comments.find(
+            comment => comment.id === req.params.comment_id
+        )
+
+        // Check if the post has already been liked
+        if (comment.dislikes.filter(dislike => dislike.user.toString() === req.user.id).length > 0) {
+            return res.status(400).json({ msg: 'Comment already liked' })
+        }
+
+        // post.comment.dislikes.unshift({ user: req.user.id })
+        post.comments.map(cmnt => {
+            if(cmnt.id === comment.id) {
+                cmnt.dislikes.unshift({ user: req.user.id })
+                return cmnt
+            } else {
+                return cmnt
+            }
+        })
+
+        // if comment liked
+        if (comment.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+            // remove dislike
+
+            const commentIndex = post.comments.findIndex(
+                comment => comment.id === req.params.comment_id
+            )
+
+            const removeIndex = post.comments[commentIndex].likes.findIndex(
+                like => like.user.toString() === req.user.id
+            )
+
+            post.comments[commentIndex].likes.splice(removeIndex, 1)
+        }
+
+        await post.save()
+
+        res.json([ comment.likes, comment.dislikes ])
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server Error')

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { Paper, Avatar, Chip, IconButton, Button } from "@material-ui/core";
 import Sidebar from '../layout/Sidebar'
-import { getCurrentProfile } from '../../actions/profile'
+import { getProfileById } from '../../actions/profile'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { 
@@ -17,20 +17,11 @@ import {
 import { Link } from 'react-router-dom'
 
 
-function Profile({ profile: {profile, loading}, getCurrentProfile }) {
+function ProfileById({ profile: {profile, loading}, getProfileById, match }) {
   useEffect(() => {
-    getCurrentProfile()
-  }, [getCurrentProfile])
+      getProfileById(match.params.id)
+  }, [getProfileById])
 
-  // const {
-  //   university,
-  //   degree,
-  //   location,
-  //   status,
-  //   skills,
-  //   social,
-  //   user: { name, avatar }
-  // } = profile
   return (
     <React.Fragment>
       {!loading && profile !== null && (
@@ -106,14 +97,6 @@ function Profile({ profile: {profile, loading}, getCurrentProfile }) {
                   )}
                 </div>
               )}
-              <p style={{ margin: '10px' }}>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  // style={{ display: 'block' }}
-                  component={Link}
-                  to='/edit-profile'>Edit Profile</Button>
-              </p>
             </div>
           </Paper>
         </React.Fragment>
@@ -147,8 +130,8 @@ const profileText = {
   borderRadius: "5px",
 };
 
-Profile.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
+ProfileById.propTypes = {
+  getProfileById: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 }
 
@@ -156,4 +139,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 })
 
-export default connect(mapStateToProps, { getCurrentProfile })(Profile);
+export default connect(mapStateToProps, { getProfileById })(ProfileById);

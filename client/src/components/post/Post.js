@@ -17,6 +17,8 @@ const Post = ({ getPost, post: {post, loading}, match }) => {
             <div style={{ gridArea: 'content' }}>
                 <CreateComment postId={post._id}/>
                 <br />
+                {/* post not reloading on vote change */}
+                {/* make new component and send postid then fetch by getpost */}
                 <PostItem post={post} />
                 <br />
                 <h3>Comments: </h3>

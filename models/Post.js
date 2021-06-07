@@ -26,6 +26,14 @@ const PostSchema = new mongoose.Schema({
             }
         }
     ],
+    dislikes: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'users'
+            }
+        }
+    ],
     comments: [
         {
             user: {
@@ -42,15 +50,17 @@ const PostSchema = new mongoose.Schema({
                     ref: 'users'
                 }
             }],
+            dislikes: [{
+                user: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'users'
+                }
+            }],
             name: {
                 type: String
             },
             avatar: {
                 type: String
-            },
-            date: {
-                type: Date,
-                default: Date.now
             }
         }
     ]

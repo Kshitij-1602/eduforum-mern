@@ -8,7 +8,8 @@ import {
     DELETE_POST,
     ADD_POST,
     ADD_COMMENT,
-    REMOVE_COMMENT
+    REMOVE_COMMENT,
+    UPDATE_LIKES_COMMENT
 } from './types'
 
 // Get posts
@@ -35,7 +36,60 @@ export const addLike = postId => async dispatch => {
 
         dispatch({
             type: UPDATE_LIKES,
-            payload: { postId, likes: res.data }
+            payload: { postId, likes: res.data[0], dislikes: res.data[1] }
+        })
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        })
+    }
+}
+
+// dislike
+export const addDislike = postId => async dispatch => {
+    try {
+        console.log('reached dislike')
+        const res = await axios.put(`/api/posts/dislike/${postId}`)
+
+        dispatch({
+            type: UPDATE_LIKES,
+            payload: { postId, likes: res.data[0], dislikes: res.data[1] }
+        })
+        console.log('completed dislike')
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        })
+    }
+}
+
+// Add Comment Like
+export const addCommentLike = ( postId, commentId ) => async dispatch => {
+    try {
+        const res = await axios.put(`/api/posts/comment/like/${postId}/${commentId}`)
+
+        dispatch({
+            type: UPDATE_LIKES_COMMENT,
+            payload: { commentId, likes: res.data[0], dislikes: res.data[1] }
+        })
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        })
+    }
+}
+
+// add comment dislike
+export const addCommentDislike = ( postId, commentId ) => async dispatch => {
+    try {
+        const res = await axios.put(`/api/posts/comment/dislike/${postId}/${commentId}`)
+
+        dispatch({
+            type: UPDATE_LIKES_COMMENT,
+            payload: { commentId, likes: res.data[0], dislikes: res.data[1] }
         })
     } catch (err) {
         dispatch({
