@@ -37,7 +37,7 @@ function ProfileById({ profile: {profile, loading}, getProfileById, match }) {
                   <legend style={{ width: "auto", fontSize: "18px", margin: "8px" }}>
                     Status
               </legend>
-                  {profile.status ? (profile.status) : ("Edit Profile to add Status")}
+                  {profile.status ? (profile.status) : ("")}
                 </fieldset>
               </div>
             </div>

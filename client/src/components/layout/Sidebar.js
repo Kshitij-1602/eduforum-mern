@@ -40,14 +40,14 @@ function Sidebar({ logout }) {
                         </ListItemIcon>
                         <ListItemText primary="All Posts" />
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button component={Link} to="/rules">
                         <ListItemIcon>
                             <GavelIcon />
                         </ListItemIcon>
                         <ListItemText primary="Rules" />
                         {/* add coc */}
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button component={Link} to="/wiki">
                         <ListItemIcon>
                             <AssignmentIcon />
                         </ListItemIcon>

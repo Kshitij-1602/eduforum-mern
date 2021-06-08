@@ -60,6 +60,7 @@ const EditProfile = ({ createProfile, history }) => {
                         fullWidth
                         style={inputStyle}
                         onChange={e => onChange(e)}
+                        required
                     />
                     <TextField 
                         name="degree"
@@ -70,6 +71,7 @@ const EditProfile = ({ createProfile, history }) => {
                         fullWidth
                         style={inputStyle}
                         onChange={e => onChange(e)}
+                        required
                     />
                     <TextField 
                         name="location"
@@ -80,6 +82,7 @@ const EditProfile = ({ createProfile, history }) => {
                         fullWidth
                         style={inputStyle}
                         onChange={e => onChange(e)}
+                        required
                     />
                     <TextField 
                         name="status"

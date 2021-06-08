@@ -32,7 +32,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     }
     // redirect if logged in
     if(isAuthenticated){
-        return <Redirect to='/topics' />
+        return <Redirect to='/posts' />
     }
     return (
         <div style={{ gridColumnStart: 'sidebar', gridColumnEnd: 'content' }}>

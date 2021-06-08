@@ -35,7 +35,7 @@ function PostItemById({ getPost, post: {post, loading}, addLikeById, addDislikeB
                             Comment
                         </span>
                     </IconButton>
-                    <IconButton size='small'>
+                    <IconButton size='small' href="mailto:devankrf@gmail.com?subject=Reporting content from EduForum">
                         <Block fontSize='inherit' />
                         <span style={{ fontSize: '0.7em' }}>Report</span>
                     </IconButton>

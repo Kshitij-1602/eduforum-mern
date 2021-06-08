@@ -13,6 +13,8 @@ import PostsByTopic from './components/posts/PostsByTopic'
 import Post from './components/post/Post'
 import EditProfile from './components/profile/EditProfile'
 import Login from './components/auth/Login'
+import Wiki from './components/static/Wiki'
+import Rules from './components/static/Rules'
 import './App.css'
 import { Provider } from 'react-redux'
 import store from './store'
@@ -46,6 +48,8 @@ const App = () => {
               <PrivateRoute exact path="/posts/:id" component={Post} />
               <PrivateRoute exact path="/posts/topic/:topicName" component={PostsByTopic} />
               <PrivateRoute exact path="/topics" component={Topics} />
+              <PrivateRoute exact path="/wiki" component={Wiki} />
+              <PrivateRoute exact path="/rules" component={Rules} />
             </Switch>
             <Footer />
         </div>
