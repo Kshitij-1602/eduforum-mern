@@ -47,6 +47,9 @@ const EditProfile = ({ createProfile, history }) => {
                     <ReceiptOutlinedIcon color="secondary" style= {{ fontSize: 40 }} />
                     <h1 style={{ display: 'inline-block', marginLeft: '10px' }}>Edit Profile</h1>
                 </div>
+                <small style={{ marginLeft: '20px' }}>
+                    To add avatar go to gravatar.com and register your universal avatar.
+                </small>
                 <form onSubmit={e => onSubmit(e)}>
                     <TextField 
                         name="university"

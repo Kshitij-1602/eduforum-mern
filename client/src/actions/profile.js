@@ -6,14 +6,12 @@ import { CLEAR_PROFILE, GET_PROFILE, GET_PROFILES, PROFILE_ERROR, UPDATE_PROFILE
 // Get current profile
 export const getCurrentProfile = () => async dispatch => {
     try {
-        console.log('get profile reached')
         const res = await axios.get('/api/profile/me')
 
         dispatch({
             type: GET_PROFILE,
             payload: res.data
         })
-        console.log('get profile called')
     } catch (err) {
         dispatch({
             type: PROFILE_ERROR,
@@ -61,6 +59,8 @@ export const getProfileById = userId => async dispatch => {
 // Create or update profile
 export const createProfile = (formData, history, edit=false) => async dispatch => {
     try {
+        console.log('create profile reached')
+        console.log(formData)
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -72,11 +72,12 @@ export const createProfile = (formData, history, edit=false) => async dispatch =
             type: GET_PROFILE,
             payload: res.data
         })
-        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'))
+        // dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'))
 
         if(!edit){
-            history.push('/dashboard')
+            history.push('/profile')
         }
+        console.log('create profile completed')
     } catch (err) {
         const errors = err.response.data.errors
 

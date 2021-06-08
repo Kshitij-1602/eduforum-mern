@@ -8,7 +8,8 @@ import {
     ADD_COMMENT,
     REMOVE_COMMENT,
     UPDATE_LIKES_COMMENT,
-    GET_POSTS_TOPIC
+    GET_POSTS_TOPIC,
+    UPDATE_LIKES_BYID
 } from '../actions/types'
 
 const initialState = {
@@ -61,6 +62,12 @@ export default function(state = initialState, action) {
                     likes: payload.likes, 
                     dislikes: payload.dislikes
                 } : post),
+                loading: false
+            }
+        case UPDATE_LIKES_BYID:
+            return {
+                ...state,
+                post: { ...state.post, likes: payload.likes, dislikes: payload.dislikes },
                 loading: false
             }
         case ADD_COMMENT:

@@ -14,7 +14,7 @@ import {
   Facebook, 
   LinkedIn, 
   GitHub } from '@material-ui/icons'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 
 function Profile({ profile: {profile, loading}, getCurrentProfile }) {
@@ -22,17 +22,9 @@ function Profile({ profile: {profile, loading}, getCurrentProfile }) {
     getCurrentProfile()
   }, [getCurrentProfile])
 
-  // const {
-  //   university,
-  //   degree,
-  //   location,
-  //   status,
-  //   skills,
-  //   social,
-  //   user: { name, avatar }
-  // } = profile
   return (
     <React.Fragment>
+      {/* add redirect to edit profile */}
       {!loading && profile !== null && (
         <React.Fragment>
           <Sidebar />
@@ -117,6 +109,9 @@ function Profile({ profile: {profile, loading}, getCurrentProfile }) {
             </div>
           </Paper>
         </React.Fragment>
+      )}
+      {!loading && profile === null && (
+        <Redirect to='edit-profile' />
       )}
     </React.Fragment>
   );

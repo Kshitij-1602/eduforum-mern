@@ -26,45 +26,47 @@ const Login = ({ login, isAuthenticated }) => {
 
     // redirect if logged in
     if(isAuthenticated){
-        return <Redirect to='/dashboard' />
+        return <Redirect to='/topics' />
     }
 
     return (
-        <div style={loginStyle}>
-            <div style={loginContainer}>
-                <LockOpenIcon color="secondary" style={{ fontSize: 50 }} />
-                <h2>Sign In</h2>
-                <form onSubmit={e => onSubmit(e)}>
-                    <TextField
-                        style={textAreaStyle}
-                        name="email"
-                        value={email}
-                        variant="outlined"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                        required
-                        onChange = {e => onChange(e)}
-                    />
-                    <TextField
-                        style={textAreaStyle}
-                        name="password"
-                        value={password}
-                        variant="outlined"
-                        label="Password"
-                        type="password"
-                        fullWidth
-                        required
-                        onChange = {e => onChange(e)}
-                    />
-                    <Button
-                        type="submit"
-                        size="large"
-                        variant="contained"
-                        color="primary"
-                    >Sign In</Button>
-                    <p>Don't have an account? <Link to="/register">Register</Link></p>
-                </form>
+        <div style={{ gridColumnStart: 'sidebar', gridColumnEnd: 'content' }}>
+            <div style={loginStyle}>
+                <div style={loginContainer}>
+                    <LockOpenIcon color="secondary" style={{ fontSize: 50 }} />
+                    <h2>Sign In</h2>
+                    <form onSubmit={e => onSubmit(e)}>
+                        <TextField
+                            style={textAreaStyle}
+                            name="email"
+                            value={email}
+                            variant="outlined"
+                            label="Email Address"
+                            type="email"
+                            fullWidth
+                            required
+                            onChange={e => onChange(e)}
+                        />
+                        <TextField
+                            style={textAreaStyle}
+                            name="password"
+                            value={password}
+                            variant="outlined"
+                            label="Password"
+                            type="password"
+                            fullWidth
+                            required
+                            onChange={e => onChange(e)}
+                        />
+                        <Button
+                            type="submit"
+                            size="large"
+                            variant="contained"
+                            color="primary"
+                        >Sign In</Button>
+                        <p>Don't have an account? <Link to="/register">Register</Link></p>
+                    </form>
+                </div>
             </div>
         </div>
     )

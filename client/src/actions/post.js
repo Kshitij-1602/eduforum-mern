@@ -10,7 +10,8 @@ import {
     ADD_COMMENT,
     REMOVE_COMMENT,
     UPDATE_LIKES_COMMENT,
-    GET_POSTS_TOPIC
+    GET_POSTS_TOPIC,
+    UPDATE_LIKES_BYID
 } from './types'
 
 // Get posts
@@ -67,14 +68,46 @@ export const addLike = postId => async dispatch => {
 // dislike
 export const addDislike = postId => async dispatch => {
     try {
-        console.log('reached dislike')
         const res = await axios.put(`/api/posts/dislike/${postId}`)
 
         dispatch({
             type: UPDATE_LIKES,
             payload: { postId, likes: res.data[0], dislikes: res.data[1] }
         })
-        console.log('completed dislike')
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        })
+    }
+}
+
+// Add Like by id
+export const addLikeById = postId => async dispatch => {
+    try {
+        const res = await axios.put(`/api/posts/like/${postId}`)
+
+        dispatch({
+            type: UPDATE_LIKES_BYID,
+            payload: { likes: res.data[0], dislikes: res.data[1] }
+        })
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        })
+    }
+}
+
+// Add dislike by id
+export const addDislikeById = postId => async dispatch => {
+    try {
+        const res = await axios.put(`/api/posts/dislike/${postId}`)
+
+        dispatch({
+            type: UPDATE_LIKES_BYID,
+            payload: { likes: res.data[0], dislikes: res.data[1] }
+        })
     } catch (err) {
         dispatch({
             type: POST_ERROR,

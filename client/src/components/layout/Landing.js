@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 function Landing() {
   return (
-    <div style={{ gridArea: 'sidebar content' }}>
+    <div style={{ gridColumnStart: 'sidebar', gridColumnEnd: 'content' }}>
       <div style={landing}>
         <div style={landingContainer}>
           <img style={imgStyle} src={logo} alt="logo" />

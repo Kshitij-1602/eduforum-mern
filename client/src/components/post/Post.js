@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import Sidebar from '../layout/Sidebar'
 import CreateComment from './CreateComment'
 import CommentItem from './CommentItem'
-import PostItem from '../posts/PostItem'
+import PostItemById from './PostItemById'
 
 const Post = ({ getPost, post: {post, loading}, match }) => {
     useEffect(() => {
@@ -17,9 +17,7 @@ const Post = ({ getPost, post: {post, loading}, match }) => {
             <div style={{ gridArea: 'content' }}>
                 <CreateComment postId={post._id}/>
                 <br />
-                {/* post not reloading on vote change */}
-                {/* make new component and send postid then fetch by getpost */}
-                <PostItem post={post} />
+                <PostItemById postId={post._id} />
                 <br />
                 <h3>Comments: </h3>
                 {post.comments.map(comment => (

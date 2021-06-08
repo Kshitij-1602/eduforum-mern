@@ -24,6 +24,7 @@ function ProfileById({ profile: {profile, loading}, getProfileById, match }) {
 
   return (
     <React.Fragment>
+      {/* add profile does not exist */}
       {!loading && profile !== null && (
         <React.Fragment>
           <Sidebar />
@@ -100,6 +101,9 @@ function ProfileById({ profile: {profile, loading}, getProfileById, match }) {
             </div>
           </Paper>
         </React.Fragment>
+      )}
+      {!loading && profile === null && (
+        <h2>Profile Does Not Exist</h2>
       )}
     </React.Fragment>
   );

@@ -32,67 +32,69 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     }
     // redirect if logged in
     if(isAuthenticated){
-        return <Redirect to='/dashboard' />
+        return <Redirect to='/topics' />
     }
     return (
-        <div style={registerStyle}>
-            <div style={registerContainer}>
-                <Alert />
-                <AccountCircleIcon color="secondary" style={{ fontSize: 50 }} />
-                <h2>Register</h2>
-                <form onSubmit={e => onSubmit(e)}>
-                    <TextField
-                        style={textAreaStyle}
-                        name="name"
-                        value={name}
-                        variant="outlined"
-                        label="Your Name"
-                        type="text"
-                        fullWidth
-                        required
-                        onChange = {e => onChange(e)}
-                    />
-                    <TextField
-                        style={textAreaStyle}
-                        name="email"
-                        value={email}
-                        variant="outlined"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                        required
-                        onChange = {e => onChange(e)}
-                    />
-                    <TextField
-                        style={textAreaStyle}
-                        name="password"
-                        value={password}
-                        variant="outlined"
-                        label="Password"
-                        type="password"
-                        fullWidth
-                        required
-                        onChange = {e => onChange(e)}
-                    />
-                    <TextField
-                        style={textAreaStyle}
-                        name="password2"
-                        value={password2}
-                        variant="outlined"
-                        label="Confirm Password"
-                        type="password"
-                        fullWidth
-                        required
-                        onChange = {e => onChange(e)}
-                    />
-                    <Button
-                        type="submit"
-                        size="large"
-                        variant="contained"
-                        color="primary"
-                    >Register</Button>
-                    <p>Already have an account? <Link to="/login">Sign In</Link></p>
-                </form>
+        <div style={{ gridColumnStart: 'sidebar', gridColumnEnd: 'content' }}>
+            <div style={registerStyle}>
+                <div style={registerContainer}>
+                    <Alert />
+                    <AccountCircleIcon color="secondary" style={{ fontSize: 50 }} />
+                    <h2>Register</h2>
+                    <form onSubmit={e => onSubmit(e)}>
+                        <TextField
+                            style={textAreaStyle}
+                            name="name"
+                            value={name}
+                            variant="outlined"
+                            label="Your Name"
+                            type="text"
+                            fullWidth
+                            required
+                            onChange={e => onChange(e)}
+                        />
+                        <TextField
+                            style={textAreaStyle}
+                            name="email"
+                            value={email}
+                            variant="outlined"
+                            label="Email Address"
+                            type="email"
+                            fullWidth
+                            required
+                            onChange={e => onChange(e)}
+                        />
+                        <TextField
+                            style={textAreaStyle}
+                            name="password"
+                            value={password}
+                            variant="outlined"
+                            label="Password"
+                            type="password"
+                            fullWidth
+                            required
+                            onChange={e => onChange(e)}
+                        />
+                        <TextField
+                            style={textAreaStyle}
+                            name="password2"
+                            value={password2}
+                            variant="outlined"
+                            label="Confirm Password"
+                            type="password"
+                            fullWidth
+                            required
+                            onChange={e => onChange(e)}
+                        />
+                        <Button
+                            type="submit"
+                            size="large"
+                            variant="contained"
+                            color="primary"
+                        >Register</Button>
+                        <p>Already have an account? <Link to="/login">Sign In</Link></p>
+                    </form>
+                </div>
             </div>
         </div>
     )
