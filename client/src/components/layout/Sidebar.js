@@ -28,35 +28,31 @@ function Sidebar({ logout }) {
                         </ListItemIcon>
                         <ListItemText primary="Profile" />
                     </ListItem>
-                    <ListItem button component={Link} to="/home">
+                    <ListItem button component={Link} to="/topics">
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Home" />
+                        <ListItemText primary="Topics" />
                     </ListItem>
                     <ListItem button component={Link} to="/posts">
                         <ListItemIcon>
                             <BallotIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Posted" />
+                        <ListItemText primary="All Posts" />
                     </ListItem>
                     <ListItem button>
                         <ListItemIcon>
                             <GavelIcon />
                         </ListItemIcon>
                         <ListItemText primary="Rules" />
+                        {/* add coc */}
                     </ListItem>
                     <ListItem button>
                         <ListItemIcon>
                             <AssignmentIcon />
                         </ListItemIcon>
                         <ListItemText primary="Wiki" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <AddBoxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="New Board" />
+                        {/* add screenshots and readme */}
                     </ListItem>
                     <ListItem button onClick={logout}>
                         <ListItemIcon>

@@ -7,6 +7,9 @@ import {
     DialogActions,
     DialogTitle,
     DialogContent,
+    FormControl,
+    Select,
+    InputLabel
 } from '@material-ui/core'
 import { Add } from '@material-ui/icons'
 import { connect } from 'react-redux'
@@ -17,13 +20,15 @@ const CreatePost = ({ addPost }) => {
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
     const [open, setOpen] = useState(false)
+    const [topic, setTopic] = useState('')
     const handleClose = () => {
         setOpen(false)
         setTitle('')
         setText('')
+        setTopic('')
     }
     const handleSubmit = () => {
-        addPost({ title, text })
+        addPost({ title, text, topic })
         handleClose()
     }
     return (
@@ -61,6 +66,20 @@ const CreatePost = ({ addPost }) => {
                         value={text}
                         fullWidth
                     />
+                    <FormControl variant='outlined' fullWidth margin='dense'>
+                        <InputLabel>Topic</InputLabel>
+                        <Select
+                            value={topic}
+                            onChange={e => setTopic(e.target.value)}
+                            label='Topic'
+                        >
+                            <option value='science'>Science</option>
+                            <option value='maths'>Maths</option>
+                            <option value='programming'>Programming</option>
+                            <option value='history'>History</option>
+                            <option value='languages'>Languages</option>
+                        </Select>
+                    </FormControl>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="secondary">

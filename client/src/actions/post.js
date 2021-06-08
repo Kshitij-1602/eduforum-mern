@@ -9,7 +9,8 @@ import {
     ADD_POST,
     ADD_COMMENT,
     REMOVE_COMMENT,
-    UPDATE_LIKES_COMMENT
+    UPDATE_LIKES_COMMENT,
+    GET_POSTS_TOPIC
 } from './types'
 
 // Get posts
@@ -19,6 +20,23 @@ export const getPosts = () => async dispatch => {
 
         dispatch({
             type: GET_POSTS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        })
+    }
+}
+
+// Get posts by topic
+export const getPostsByTopic = topicName => async dispatch => {
+    try {
+        const res = await axios.get(`/api/posts/topic/${topicName}`)
+
+        dispatch({
+            type: GET_POSTS_TOPIC,
             payload: res.data
         })
     } catch (err) {

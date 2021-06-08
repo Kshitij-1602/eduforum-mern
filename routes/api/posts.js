@@ -22,7 +22,8 @@ router.post('/', [ auth, [
             text: req.body.text,
             name: user.name,
             avatar: user.avatar,
-            user: req.user.id
+            user: req.user.id,
+            topic : req.body.topic
         })
         const post = await newPost.save()
         res.json(post)
@@ -61,6 +62,19 @@ router.get('/:id', auth, async (req, res) => {
         if(error.kind == 'ObjectId') {
             return res.status(404).json({ msg: 'Post not found' })
         }
+        res.status(500).send('Server Error')
+    }
+})
+
+// @route   GET api/posts/topic/:topicName
+// @desc    get post by topic
+// @access  Private
+router.get('/topic/:topicName', auth, async(req, res) => {
+    try {
+        const posts = await Post.find({ topic: req.params.topicName })    
+        res.json(posts)
+    } catch (error) {
+        console.error(error.message)
         res.status(500).send('Server Error')
     }
 })

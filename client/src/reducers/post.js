@@ -7,7 +7,8 @@ import {
     GET_POST,
     ADD_COMMENT,
     REMOVE_COMMENT,
-    UPDATE_LIKES_COMMENT
+    UPDATE_LIKES_COMMENT,
+    GET_POSTS_TOPIC
 } from '../actions/types'
 
 const initialState = {
@@ -22,6 +23,7 @@ export default function(state = initialState, action) {
 
     switch(type) {
         case GET_POSTS:
+        case GET_POSTS_TOPIC:
             return {
                 ...state,
                 posts: payload,

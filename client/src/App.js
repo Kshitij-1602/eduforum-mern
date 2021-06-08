@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Landing from './components/layout/Landing'
+import Topics from './components/layout/Topics'
 import Register from './components/auth/Register'
 import Dashboard from './components/dashboard/Dashboard'
 import Profile from './components/profile/Profile'
 import ProfileById from './components/profile/ProfileById'
 import Posts from './components/posts/Posts'
+import PostsByTopic from './components/posts/PostsByTopic'
 import Post from './components/post/Post'
 import EditProfile from './components/profile/EditProfile'
 import Login from './components/auth/Login'
@@ -42,6 +44,8 @@ const App = () => {
               <PrivateRoute exact path="/edit-profile" component={EditProfile} />
               <PrivateRoute exact path="/posts" component={Posts} />
               <PrivateRoute exact path="/posts/:id" component={Post} />
+              <PrivateRoute exact path="/posts/topic/:topicName" component={PostsByTopic} />
+              <PrivateRoute exact path="/topics" component={Topics} />
             </Switch>
             <Footer />
         </div>
