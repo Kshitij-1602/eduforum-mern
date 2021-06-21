@@ -38,7 +38,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <div style={{ gridColumnStart: 'sidebar', gridColumnEnd: 'content' }}>
             <div style={registerStyle}>
                 <div style={registerContainer}>
-                    <Alert />
                     <AccountCircleIcon color="secondary" style={{ fontSize: 50 }} />
                     <h2>Register</h2>
                     <form onSubmit={e => onSubmit(e)}>

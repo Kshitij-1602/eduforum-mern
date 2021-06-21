@@ -12,6 +12,7 @@ import Posts from './components/posts/Posts'
 import PostsByTopic from './components/posts/PostsByTopic'
 import Post from './components/post/Post'
 import EditProfile from './components/profile/EditProfile'
+import Snackbar from './components/layout/Snackbar'
 import Login from './components/auth/Login'
 import Wiki from './components/static/Wiki'
 import Rules from './components/static/Rules'
@@ -53,6 +54,7 @@ const App = () => {
             </Switch>
             <Footer />
         </div>
+        <Snackbar />
       </Fragment>
     </Router>
   </Provider>
