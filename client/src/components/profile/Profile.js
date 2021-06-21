@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { Paper, Avatar, Chip, IconButton, Button } from "@material-ui/core";
 import Sidebar from '../layout/Sidebar'
-import { getCurrentProfile } from '../../actions/profile'
+import { getCurrentProfile, deleteAccount } from '../../actions/profile'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { 
@@ -17,14 +17,13 @@ import {
 import { Link, Redirect } from 'react-router-dom'
 
 
-function Profile({ profile: {profile, loading}, getCurrentProfile }) {
+function Profile({ profile: {profile, loading}, getCurrentProfile, deleteAccount }) {
   useEffect(() => {
     getCurrentProfile()
   }, [getCurrentProfile])
 
   return (
     <React.Fragment>
-      {/* add redirect to edit profile */}
       {!loading && profile !== null && (
         <React.Fragment>
           <Sidebar />
@@ -104,7 +103,16 @@ function Profile({ profile: {profile, loading}, getCurrentProfile }) {
                   color='secondary'
                   // style={{ display: 'block' }}
                   component={Link}
-                  to='/edit-profile'>Edit Profile</Button>
+                  to='/edit-profile'>
+                    Edit Profile
+                </Button>
+                <Button
+                  variant='contained'
+                  style={{ marginLeft: '10px', backgroundColor: '#343a40', color: 'white' }}
+                  onClick={() => deleteAccount()}
+                >
+                  Delete Account
+                </Button>
               </p>
             </div>
           </Paper>
@@ -144,6 +152,7 @@ const profileText = {
 
 Profile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 }
 
@@ -151,4 +160,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 })
 
-export default connect(mapStateToProps, { getCurrentProfile })(Profile);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Profile);
