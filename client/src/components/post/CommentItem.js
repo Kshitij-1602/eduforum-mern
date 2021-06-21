@@ -1,6 +1,6 @@
 import React from 'react'
 import { Paper, IconButton, Avatar } from '@material-ui/core'
-import { Block, KeyboardArrowUp, KeyboardArrowDown } from '@material-ui/icons'
+import { Block, KeyboardArrowUp, KeyboardArrowDown, Delete } from '@material-ui/icons'
 import { addCommentLike, addCommentDislike, deleteComment } from '../../actions/post'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -11,6 +11,7 @@ function CommentItem({
     addCommentLike,
     addCommentDislike,
     deleteComment,
+    auth,
     comment: { _id, text, name, avatar, user, likes, dislikes, date }
 }) {
     return (
@@ -33,6 +34,11 @@ function CommentItem({
                         <Block fontSize='inherit' />
                         <span style={{ fontSize: '0.7em' }}>Report</span>
                     </IconButton>
+                    {!auth.loading && user === auth.user._id && (
+                        <IconButton size='small' onClick={e => deleteComment(postId, _id)}>
+                            <Delete fontSize='default' />
+                        </IconButton>
+                    )}
                 </div>
             </Paper>
         </div>
@@ -73,6 +79,10 @@ const nameStyle = {
 CommentItem.propTypes = {
     deleteComment: PropTypes.func.isRequired,
     addCommentLike: PropTypes.func.isRequired,
-    addCommentDislike: PropTypes.func.isRequired
+    addCommentDislike: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
 }
-export default connect(null, { addCommentLike, addCommentDislike, deleteComment })( CommentItem )
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+export default connect(mapStateToProps, { addCommentLike, addCommentDislike, deleteComment })( CommentItem )

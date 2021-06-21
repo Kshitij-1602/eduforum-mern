@@ -1,7 +1,7 @@
 import React from 'react'
 import { Paper, IconButton, Avatar } from '@material-ui/core'
-import { Comment, Block, KeyboardArrowUp, KeyboardArrowDown } from '@material-ui/icons'
-import { addLike, addDislike, removeLike, deletePost } from '../../actions/post'
+import { Comment, Block, KeyboardArrowUp, KeyboardArrowDown, Delete } from '@material-ui/icons'
+import { addLike, addDislike, deletePost } from '../../actions/post'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 function PostItem({
     addLike,
     addDislike,
-    removeLike,
+    auth,
     deletePost,
     post: { _id, title, text, name, avatar, user, likes, dislikes, comments, date }
 }) {
@@ -42,6 +42,11 @@ function PostItem({
                         <Block fontSize='inherit' />
                         <span style={{ fontSize: '0.7em' }}>Report</span>
                     </IconButton>
+                    {!auth.loading && user === auth.user._id && (
+                        <IconButton size='small' onClick={e => deletePost(_id)}>
+                            <Delete fontSize='default' />
+                        </IconButton>
+                    )}
                 </div>
             </Paper>
         </div>
@@ -82,8 +87,11 @@ const nameStyle = {
 PostItem.propTypes = {
     addLike: PropTypes.func.isRequired,
     addDislike: PropTypes.func.isRequired,
-    removeLike: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
-    post: PropTypes.object.isRequired
+    post: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
 }
-export default connect(null, { addLike, addDislike, removeLike, deletePost })( PostItem )
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+export default connect(mapStateToProps, { addLike, addDislike, deletePost })( PostItem )
