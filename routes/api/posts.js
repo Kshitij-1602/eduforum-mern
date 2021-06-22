@@ -4,6 +4,7 @@ const auth = require('../../middleware/auth')
 const { check,validationResult } = require('express-validator')
 const Users = require('../../models/Users')
 const Post = require('../../models/Post')
+const Reports = require('../../models/Reports')
 
 // @route   POST api/posts
 // @desc    Create a post
@@ -423,6 +424,26 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server Error')
+    }
+})
+
+// @route    POST api/posts/report
+// @desc     Report post or comment
+// @access   Private
+router.post('/report', auth, async (req, res) => {
+    try {
+        const newReport = new Reports({
+            email: req.body.email,
+            title: req.body.title,
+            description: req.body.description,
+            reporttype: req.body.reporttype,
+            contentid: req.body.contentid
+        })
+        await newReport.save()
+        res.send({ msg: 'Report Sent' })
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send({ msg: 'Server Error' })
     }
 })
 

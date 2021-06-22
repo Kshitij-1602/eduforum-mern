@@ -57,7 +57,7 @@ export const getProfileById = userId => async dispatch => {
 }
 
 // Create or update profile
-export const createProfile = (formData, history, edit=false) => async dispatch => {
+export const createProfile = (formData, history) => async dispatch => {
     try {
         console.log('create profile reached')
         console.log(formData)
@@ -72,12 +72,9 @@ export const createProfile = (formData, history, edit=false) => async dispatch =
             type: GET_PROFILE,
             payload: res.data
         })
-        // dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'))
+        dispatch(setAlert('Profile Created', 'success'))
 
-        if(!edit){
-            history.push('/profile')
-        }
-        console.log('create profile completed')
+        history.push('/profile')
     } catch (err) {
         const errors = err.response.data.errors
 

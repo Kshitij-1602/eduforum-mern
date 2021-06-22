@@ -38,7 +38,11 @@ function PostItem({
                             Comment
                         </span>
                     </IconButton>
-                    <IconButton size='small' href="mailto:devankrf@gmail.com?subject=Reporting content from EduForum">
+                    {/* <IconButton size='small' href="mailto:devankrf@gmail.com?subject=Reporting content from EduForum">
+                        <Block fontSize='inherit' />
+                        <span style={{ fontSize: '0.7em' }}>Report</span>
+                    </IconButton> */}
+                    <IconButton size='small' component={Link} to={`/report/post/${_id}`}>
                         <Block fontSize='inherit' />
                         <span style={{ fontSize: '0.7em' }}>Report</span>
                     </IconButton>

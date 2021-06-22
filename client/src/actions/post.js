@@ -265,3 +265,23 @@ export const deleteComment = ( postId, commentId ) => async dispatch => {
         })
     }
 }
+
+export const reportContent = ( contentid, reporttype, formData, history ) => async dispatch => {
+    try {
+        const data = {
+            email: formData.email,
+            title: formData.title,
+            description: formData.description,
+            contentid,
+            reporttype
+        }
+        await axios.post('/api/posts/report', data)
+        dispatch(setAlert('Report Submitted','success'))
+        history.push('/posts')
+    } catch (err) {
+        dispatch({
+            type: POST_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        })
+    }
+}

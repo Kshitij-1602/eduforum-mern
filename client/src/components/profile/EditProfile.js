@@ -42,7 +42,6 @@ const EditProfile = ({ createProfile, history }) => {
         <Fragment>
             <Sidebar />
             <Paper className="content profileStyle">
-                {/* TODO: add alert */}
                 <div style={top}>
                     <ReceiptOutlinedIcon color="secondary" style= {{ fontSize: 40 }} />
                     <h1 style={{ display: 'inline-block', marginLeft: '10px' }}>Edit Profile</h1>
