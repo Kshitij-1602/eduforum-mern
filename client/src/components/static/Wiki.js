@@ -24,9 +24,6 @@ const Wiki = () => {
                     in all topics section). Then other students can answer these questions/doubts and
                     take part in the discussion by clicking on comment button. Students can upvote or
                     downvote the post depending on whether they like it or not.
-                <br />
-                This website has been developed as a portfolio project while I was learning the mern
-                stack, this website is not optimized for actual heavy socail network usage.
                 </p>
                 <h3>Technologies used:</h3>
                 <ul>
