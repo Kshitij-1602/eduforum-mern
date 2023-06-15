@@ -1,4 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://dev123:dev123@cluster0.t7ddq.mongodb.net/eduforum-mern?retryWrites=true&w=majority",
+    "mongoURI": "mongodb+srv://kmohanka16:KSH!@#789ksh@cluster0.y8c3w8a.mongodb.net/?retryWrites=true&w=majority",
     "jwtSecret": "mysecrettoken"
 }
